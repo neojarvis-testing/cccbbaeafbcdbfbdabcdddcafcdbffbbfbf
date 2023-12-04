@@ -1,5 +1,6 @@
 com/examly/springapp/exceptions/PlayerAlreadyAssignedException.class
 com/examly/springapp/services/TeamService.class
+com/examly/springapp/controllers/AdminController.class
 com/examly/springapp/service/TeamsService.class
 com/examly/springapp/SpringappApplication.class
 com/examly/springapp/Teams.class
