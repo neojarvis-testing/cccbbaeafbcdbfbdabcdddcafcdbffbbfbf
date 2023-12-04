@@ -38,7 +38,7 @@ fs.access(directoryPath, 0)
                                                     const errorMessage = errorDetails._;                                             
                                                         if (errorMessage.includes('Syntax error')) {
                                                             // const firstLineOfMessage = errorMessage.split('\n')[0];
-                                                            console.log(`Compilation Error`);                                                        
+                                                            console.log(`COMPILATION ERROR`);                                                        
                                                             syntaxErrorOccurred = true;                                                                                                    
                                                         }
                                                 } else if (testcase.failure) {
@@ -51,7 +51,7 @@ fs.access(directoryPath, 0)
                                                     console.log(`Error `);
                                                 }
                                             }
-                                            console.log("Compilation ");
+                                            console.log("Build FAILED");
                                         });
                                     }
                                     resolve();
