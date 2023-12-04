@@ -1,0 +1,102 @@
+const fs = require('fs').promises;
+const xml2js = require('xml2js');
+const path = require('path');
+ 
+const directoryPath = '/home/coder/project/workspace/springapp/target/surefire-reports';
+const parser = new xml2js.Parser();
+let totalTests = 0;
+let passedTests = 0;
+let failedTests = 0;
+let syntaxErrorOccurred = false;
+const color = {
+    reset: "\x1b[0m",
+    blue: "\x1b[34m",
+    green: "\x1b[32m",
+    red: "\x1b[31m"
+};
+const passedTestCases = []; // Create a list to store passed test cases
+const testTestCases=[];
+fs.access(directoryPath, 0)
+    .then(() => {
+        return fs.readdir(directoryPath);
+    })
+    .then(files => {
+        const promises = files.map(file => {
+            if (path.extname(file) === '.xml') {
+                const filePath = path.join(directoryPath, file);
+                return fs.readFile(filePath)
+                    .then(data => {
+                        return new Promise((resolve, reject) => {
+                            parser.parseString(data, (err, result) => {
+                                if (err) {
+                                    console.log(`Error parsing XML in file: ${filePath}`);
+                                    reject(err);
+                                } else {
+                                    if (result.testsuite?.testcase) {
+                                        result.testsuite.testcase.forEach(testcase => {
+                                            if (!syntaxErrorOccurred) {
+                                                totalTests++;
+                                                if (Array.isArray(testcase.error) && testcase.error.length > 0) {
+                                                    const errorDetails = testcase.error[0];
+                                                    const errorMessage = errorDetails._;
+                                                    console.log(errorMessage.includes('Unresolved compilation problem:'));
+                                                    console.log(errorMessage);
+                                                    if (errorMessage.includes('Unresolved compilation problem:') || errorDetails.includes('exception')) {
+                                                        console.log(`Compilation Error Detected`);
+                                                        syntaxErrorOccurred = true;
+                                                    }
+                                                } else if (testcase.failure) {
+                                                    testTestCases.push(testcase.$.name);
+                                                    failedTests++;
+                                                } else if (testcase.$.name) {
+                                                    // Add the passed test case name to the list
+                                                    passedTestCases.push(testcase.$.name);
+                                                    passedTests++;
+                                                } else {
+                                                    console.log(`Error `);
+                                                }
+                                            }
+                                        });
+                                    }
+                                    resolve();
+                                }
+                            });
+                        });
+                    })
+                    .catch(err => {
+                        console.log(`Error reading file: ${filePath}`);
+                        console.error(err);
+                    });
+            }
+        });
+ 
+        return Promise.all(promises);
+    })
+    .then(() => {
+        if (!syntaxErrorOccurred) {
+            // console.log(`**********************************************`);
+            // console.log(`${color.blue}Total Tests${color.reset}: ${color.blue}${totalTests}${color.reset}, ${color.green}Passed Tests:${color.reset} ${color.green}${passedTests}${color.reset}, ${color.red}Failed Tests:${color.reset} ${color.red}${failedTests}${color.reset}`);
+            // console.log(`**********************************************`);
+            // Print the passed test cases only if no compilation error
+            if (passedTestCases.length > 0) {
+                console.log(`${color.green}Passed Test Cases:${color.reset}`);
+                passedTestCases.forEach(testCase => {
+                    console.log(`- ${testCase}`);
+                });
+            }
+            if(testTestCases.length>0){
+                console.log(`${color.red}Failed Test Cases:${color.reset}`);
+                testTestCases.forEach(testCase => {
+                    console.log(`- ${testCase}`);
+                });
+            }
+            console.log(`**********************************************`);
+            console.log(`${color.blue}Total Tests${color.reset}: ${color.blue}${totalTests}${color.reset}, ${color.green}Passed Tests:${color.reset} ${color.green}${passedTests}${color.reset}, ${color.red}Failed Tests:${color.reset} ${color.red}${failedTests}${color.reset}`);
+            console.log(`**********************************************`);
+        } else {
+            console.log(`**********************************************`);
+            console.log(`${color.blue}Total Tests${color.reset}: ${color.blue}${totalTests}${color.reset}, ${color.green}Passed Tests:${color.reset} ${color.green}${0}${color.reset}, ${color.red}Failed Tests:${color.reset} ${color.red}${0}${color.reset}`);
+            console.log(`**********************************************`);
+        }
+    })
+    .catch(err => console.log(`Unable to scan directory or directory does not exist: ${directoryPath}`, err));
