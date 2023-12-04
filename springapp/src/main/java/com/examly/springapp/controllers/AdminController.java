@@ -111,11 +111,11 @@ return "Welcome to SpringProject";
     }
 
     // Endpoint to delete a player by its ID
-    @DeleteMapping("/players/{playerId}")
-    public ResponseEntity<String> deletePlayer(@PathVariable Long playerId) {
-        adminService.deletePlayer(playerId);
-        return ResponseEntity.ok("Player deleted successfully");
-    }
-}
+   // @DeleteMapping("/players/{playerId}")
+  //  public ResponseEntity<String> deletePlayer(@PathVariable Long playerId) {
+   //     adminService.deletePlayer(playerId);
+   //     return ResponseEntity.ok("Player deleted successfully");
+  //  }
+//}
 
 
