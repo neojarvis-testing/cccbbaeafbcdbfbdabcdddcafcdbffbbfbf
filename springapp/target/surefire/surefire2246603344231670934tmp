@@ -1,5 +1,5 @@
 #surefire
-#Mon Dec 04 11:15:28 UTC 2023
+#Mon Dec 04 11:18:08 UTC 2023
 includes1=**/*Test.java
 includes2=**/*Tests.java
 classPathUrl.100=/home/coder/.m2/repository/org/hamcrest/hamcrest-core/2.2/hamcrest-core-2.2.jar
@@ -96,7 +96,7 @@ classPathUrl.16=/home/coder/.m2/repository/org/hibernate/common/hibernate-common
 classPathUrl.17=/home/coder/.m2/repository/org/glassfish/jaxb/jaxb-runtime/2.3.8/jaxb-runtime-2.3.8.jar
 classPathUrl.18=/home/coder/.m2/repository/org/glassfish/jaxb/txw2/2.3.8/txw2-2.3.8.jar
 classPathUrl.19=/home/coder/.m2/repository/com/sun/istack/istack-commons-runtime/3.0.12/istack-commons-runtime-3.0.12.jar
-pluginPid=53005
+pluginPid=54712
 shutdown=EXIT
 classPathUrl.4=/home/coder/.m2/repository/org/aspectj/aspectjweaver/1.9.7/aspectjweaver-1.9.7.jar
 classPathUrl.5=/home/coder/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/2.7.14/spring-boot-starter-jdbc-2.7.14.jar
