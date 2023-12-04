@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.examly.springapp.SpringappApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 33, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 7.519 s <<< FAILURE! - in com.examly.springapp.SpringappApplicationTests
-com.examly.springapp.SpringappApplicationTests.Week2_Day2_testWelcome  Time elapsed: 0.023 s  <<< FAILURE!
+Tests run: 33, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 7.324 s <<< FAILURE! - in com.examly.springapp.SpringappApplicationTests
+com.examly.springapp.SpringappApplicationTests.Week2_Day2_testWelcome  Time elapsed: 0.028 s  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<401>
 	at com.examly.springapp.SpringappApplicationTests.Week2_Day2_testWelcome(SpringappApplicationTests.java:403)
 
